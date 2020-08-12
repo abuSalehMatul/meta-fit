@@ -14,7 +14,7 @@ export class Body extends Component {
         this.update = this.update.bind(this);
     }
     getMeta() {
-        axios.get(window.location.origin + '/api/meta-fields/')
+        axios.get('https://apps.shapeyourshop.com/des-kohan/api/meta-fields/')
             .then((response) => {
                 this.setState({
                     metafields:response.data

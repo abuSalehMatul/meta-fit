@@ -20,7 +20,7 @@ export class Product extends Component {
             toastMarkup: '',
             loading:true
         };
-        this.serverAddress = window.location.origin;
+        this.serverAddress = "https://apps.shapeyourshop.com/des-kohan";
         this.getProducts();
         this.getAppProducts();
         this.handleMetaUpdate = this.handleMetaUpdate.bind(this);
@@ -106,7 +106,7 @@ export class Product extends Component {
                 let fitinfo = '';
                 if (this.state.appProductList[this.state.productList[i].id]) {
                     fitinfo = <span><Badge status="success">{this.state.appProductList[this.state.productList[i].id]}</Badge>
-                    <span onClick={()=>{
+                    <img onClick={()=>{
                         axios.post(this.serverAddress+'/api/delete-meta', { 'product_id': this.state.productList[i].id })
                         .then((response) => {
                             this.setState({
@@ -118,7 +118,8 @@ export class Product extends Component {
                             // handle error
                             console.log(error);
                         });
-                    }} style={{color:"red", cursor:'pointer'}}>&#10006;</span></span>
+                    }} src={this.serverAddress+"/ico-remove.png"} style={{cursor:'pointer'}}></img>
+                   </span>
                 }
                 else {
                     fitinfo = <Badge>Fit info hasn't been set yet</Badge>;

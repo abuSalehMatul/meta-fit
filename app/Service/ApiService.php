@@ -203,24 +203,27 @@ class ApiService
         $result = $matches[1] . ']';
         $result = json_decode($result);
         
+        $id="";
         foreach ($result as $res) {
             if ($res->key == 'fit-info') {
                 $id = $res->id;
             }
         }
 
-
-        $url = "https://{$shop}/admin/api/2020-07/products/{$productId}/metafields/{$id}.json";
-        $crl = curl_init();
-        curl_setopt($crl, CURLOPT_URL, $url);
-        curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'X-Shopify-Access-Token: ' . $token));
-        curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($crl, CURLOPT_VERBOSE, 0);
-        curl_setopt($crl, CURLOPT_HEADER, 1);
-        curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
-        curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, false);
-        $response = curl_exec($crl);
-        curl_close($crl);
+        if($id !=""){
+            $url = "https://{$shop}/admin/api/2020-07/products/{$productId}/metafields/{$id}.json";
+            $crl = curl_init();
+            curl_setopt($crl, CURLOPT_URL, $url);
+            curl_setopt($crl, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'X-Shopify-Access-Token: ' . $token));
+            curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($crl, CURLOPT_VERBOSE, 0);
+            curl_setopt($crl, CURLOPT_HEADER, 1);
+            curl_setopt($crl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+            curl_setopt($crl, CURLOPT_SSL_VERIFYPEER, false);
+            $response = curl_exec($crl);
+            curl_close($crl);
+        }
+        
         return $response;
     }
 
